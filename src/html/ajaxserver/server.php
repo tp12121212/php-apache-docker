@@ -3,8 +3,8 @@
  * IMPORTANT : Update email address bellow to your desired email address
  * (relative to your server domaine).
  **/
-$newsletterEmail = "team@killercloud.com.au";
-$contactEmail = "team@killercloud.com.au";
+$newsletterEmail = "your@email.com";
+$contactEmail = "your@email.com";
 
 // Set the header response to JSON
 header('Content-type: application/json');
@@ -70,7 +70,7 @@ if (isset($post['submit_message'])) {
         // -- BELOW : EXAMPLE SEND YOU AN EMAIL CONTAINING THE MESSAGE (comment to disable it/ uncomment it to enable it)
         // Set the recipient email address.
         // IMPORTANT - FIXME: Update this to your desired email address (relative to your server domaine).
-        $recipient = "todd@killercloud.cojm.au";
+        // $recipient = "your@email.com";
         $recipient = $contactEmail;
         
         // Set the email subject.
@@ -101,7 +101,7 @@ if (isset($post['submit_message'])) {
             $response['error'] = 'Oops! Something went wrong and we couldn\'t send your message';
             $content = 'Message delivery error - can not send message'. "\r\n" . $content;
             // Uncomment below to Write message into a file as a backup
-            file_put_contents("message.txt", $content . "\r\n---------\r\n", FILE_APPEND | LOCK_EX);
+            //file_put_contents("message.txt", $content . "\r\n---------\r\n", FILE_APPEND | LOCK_EX);
         }
         
     }
