@@ -2047,7 +2047,7 @@ body.menu-visible .navbar-a.hide-header {
   justify-content: center;
   flex-direction: column; }
   .btn-scrolldown-a .icon {
-    margin-bottom: 8px; }
+    margin-bottom: 20px; }
   .btn-scrolldown-a .text {
     font-size: 0.875rem;
     transition: 0.3s;
