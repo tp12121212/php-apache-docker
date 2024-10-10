@@ -1,31 +1,37 @@
 FROM ubuntu/apache2
 
 RUN apt-get update && apt-get install --no-install-recommends --assume-yes --quiet -y \
-composer \
-libphp-phpmailer \
+apache2-utils \
 aptitude \
-git \
-telnet \
-net-tools \
-w3m \
-wget \
-inetutils-ping \
-p7zip-full \
-file \
-ssh \
-nano \
-lsof \
-htop \
-nano \
 bzip2 \
 certbot \
-python3-certbot-apache \
+composer \
 dnsutils \
+file \
+git \
+htop \
+inetutils-ping \
+libphp-phpmailer \
+lsof \
+nano \
+nano \
+net-tools \
+libapache2-mod-php \
 openssh-server \
-openssl
+openssl \
+p7zip-full \
+python3-certbot-apache \
+ssh \
+telnet \
+w3m \
+wget \
+&& apt-get -y autoremove \
+&& apt-get clean autoclean \
+&& rm -fr /var/lib/apt/lists/{apt,dpkg,cache,log} /tmp/* /var/tmp/*
 
 COPY ./src/html/ /var/www/html/
 COPY ./src/script/ /usr/bin/
+COPY ./src/conf/apache/apache2.conf /etc/apache2/apache2.conf
 
 EXPOSE 22 80 443
 
