@@ -1,6 +1,6 @@
 FROM ubuntu/apache2
 
-RUN apt-get update && apt-get install --no-install-recommends --assume-yes --quiet -y \
+RUN apt-get update && apt-get --assume-yes --quiet -y upgrade && apt-get install --no-install-recommends --assume-yes --quiet -y \
 apache2-utils \
 aptitude \
 bzip2 \
@@ -25,6 +25,9 @@ ssh \
 telnet \
 w3m \
 wget \
+php8.3 \
+php8.3-fpm \
+libapache2-mod-fcgid \
 && apt-get -y autoremove \
 && apt-get clean autoclean \
 && rm -fr /var/lib/apt/lists/{apt,dpkg,cache,log} /tmp/* /var/tmp/*
@@ -32,6 +35,10 @@ wget \
 COPY ./src/html/ /var/www/html/
 COPY ./src/script/ /usr/bin/
 COPY ./src/conf/apache/apache2.conf /etc/apache2/apache2.conf
+
+RUN a2enmod proxy_fcgi proxy actions fcgid alias
+RUN systemctl enable php8.3-fpm
+
 
 EXPOSE 22 80 443
 
