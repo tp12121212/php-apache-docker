@@ -1284,7 +1284,7 @@ body.menu-visible .navbar-a.hide-header {
 .nav-social-a a, .nav-social-a .btn {
   padding: 0;
   min-height: unset;
-  color: currentColor;
+  color: #ffffff;
   line-height: 1;
   transition: 0.2s;
   transition-timing-function: cubic-bezier(0.25, 0.75, 0.2, 1); }
