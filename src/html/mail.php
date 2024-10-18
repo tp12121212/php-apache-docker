@@ -11,9 +11,9 @@ $mail->SMTPSecure = 'tls'; // secure transfer enabled REQUIRED for Gmail
 $mail->Host = 'smtp.office365.com';
 $mail->Port = 587; // or 587
 $mail->IsHTML(true);
-$mail->Username = 'notifications@killercloud.com.au';
-$mail->Password = 'WINKy12(((';
-$mail->SetFrom('notifications@killercloud.com.au');
+$mail->Username = '';
+$mail->Password = 
+$mail->SetFrom('');
 $mail->Subject = 'Test';
 $mail->Body = 'heffffffffllo';
     $mail->AddAddress('todd@killercloud.com.au');
