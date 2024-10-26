@@ -10,9 +10,9 @@
     <!-- Content of your site -->
 
     <!-- Cookie Consent Popup -->
-    <div id="cookieConsent" class="alert alert-dark position-fixed bottom-0 w-100 text-center" style="display: none;">
+    <div id="cookieConsent" class="alert alert-dark position-fixed bottom-0 w-100 text-center" style="display: none; z-index: 1050;">
         <p class="mb-2">
-            We use cookies to enhance your experience. Choose which cookies you want to allow:
+            We use cookies to enhance your experience. Please select your preferences:
         </p>
         <button id="acceptAll" class="btn btn-success btn-sm mx-1">Accept All</button>
         <button id="acceptNecessary" class="btn btn-primary btn-sm mx-1">Only Necessary</button>
@@ -25,47 +25,49 @@
     <!-- JavaScript to handle cookie consent -->
     <script>
         // Check if the user has already given consent
-        window.onload = function () {
+        document.addEventListener('DOMContentLoaded', function () {
             const consent = localStorage.getItem('cookieConsent');
             if (!consent) {
+                // Show the popup if no consent has been given
                 document.getElementById('cookieConsent').style.display = 'block';
             } else {
+                // Apply cookie settings based on stored consent
                 applyCookieSettings(consent);
             }
-        };
+        });
 
-        // Apply the settings based on consent type
+        // Function to apply cookie settings based on consent type
         function applyCookieSettings(consentType) {
             if (consentType === 'acceptAll') {
-                // Enable all cookies
+                // Enable all cookies (for example, you could initialize analytics here)
                 console.log("All cookies accepted");
             } else if (consentType === 'acceptNecessary') {
                 // Enable only necessary cookies
                 console.log("Only necessary cookies enabled");
-            } else {
+            } else if (consentType === 'deny') {
                 // Disable all cookies
                 console.log("Cookies denied");
             }
         }
 
         // Event listeners for each consent option
-        document.getElementById('acceptAll').onclick = function () {
+        document.getElementById('acceptAll').addEventListener('click', function () {
             localStorage.setItem('cookieConsent', 'acceptAll');
             document.getElementById('cookieConsent').style.display = 'none';
             applyCookieSettings('acceptAll');
-        };
+        });
 
-        document.getElementById('acceptNecessary').onclick = function () {
+        document.getElementById('acceptNecessary').addEventListener('click', function () {
             localStorage.setItem('cookieConsent', 'acceptNecessary');
             document.getElementById('cookieConsent').style.display = 'none';
             applyCookieSettings('acceptNecessary');
-        };
+        });
 
-        document.getElementById('denyCookies').onclick = function () {
+        document.getElementById('denyCookies').addEventListener('click', function () {
             localStorage.setItem('cookieConsent', 'deny');
             document.getElementById('cookieConsent').style.display = 'none';
             applyCookieSettings('deny');
-        };
+        });
     </script>
 
     <!-- Bootstrap JS (optional if you need Bootstrap functionality elsewhere on the page) -->
