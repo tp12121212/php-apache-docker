@@ -24,49 +24,53 @@
 
     <!-- JavaScript to handle cookie consent -->
     <script>
-        // Check if the user has already given consent
-        document.addEventListener('DOMContentLoaded', function () {
-            const consent = localStorage.getItem('cookieConsent');
-            if (!consent) {
-                // Show the popup if no consent has been given
-                document.getElementById('cookieConsent').style.display = 'block';
-            } else {
-                // Apply cookie settings based on stored consent
-                applyCookieSettings(consent);
-            }
-        });
-
         // Function to apply cookie settings based on consent type
         function applyCookieSettings(consentType) {
             if (consentType === 'acceptAll') {
-                // Enable all cookies (for example, you could initialize analytics here)
                 console.log("All cookies accepted");
             } else if (consentType === 'acceptNecessary') {
-                // Enable only necessary cookies
                 console.log("Only necessary cookies enabled");
             } else if (consentType === 'deny') {
-                // Disable all cookies
                 console.log("Cookies denied");
             }
         }
 
-        // Event listeners for each consent option
-        document.getElementById('acceptAll').addEventListener('click', function () {
-            localStorage.setItem('cookieConsent', 'acceptAll');
-            document.getElementById('cookieConsent').style.display = 'none';
-            applyCookieSettings('acceptAll');
-        });
+        // Check if consent has been previously given
+        function checkConsent() {
+            const consent = localStorage.getItem('cookieConsent');
+            if (!consent) {
+                document.getElementById('cookieConsent').style.display = 'block';
+            } else {
+                applyCookieSettings(consent);
+            }
+        }
 
-        document.getElementById('acceptNecessary').addEventListener('click', function () {
-            localStorage.setItem('cookieConsent', 'acceptNecessary');
-            document.getElementById('cookieConsent').style.display = 'none';
-            applyCookieSettings('acceptNecessary');
-        });
+        // Set consent and apply corresponding settings
+        function setConsent(consentType) {
+            try {
+                localStorage.setItem('cookieConsent', consentType);
+                document.getElementById('cookieConsent').style.display = 'none';
+                applyCookieSettings(consentType);
+            } catch (error) {
+                console.error("Error saving consent:", error);
+            }
+        }
 
-        document.getElementById('denyCookies').addEventListener('click', function () {
-            localStorage.setItem('cookieConsent', 'deny');
-            document.getElementById('cookieConsent').style.display = 'none';
-            applyCookieSettings('deny');
+        // Initialize event listeners on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            // Check if consent is already stored
+            checkConsent();
+
+            // Add event listeners to buttons
+            document.getElementById('acceptAll').addEventListener('click', function () {
+                setConsent('acceptAll');
+            });
+            document.getElementById('acceptNecessary').addEventListener('click', function () {
+                setConsent('acceptNecessary');
+            });
+            document.getElementById('denyCookies').addEventListener('click', function () {
+                setConsent('deny');
+            });
         });
     </script>
 
