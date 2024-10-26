@@ -738,7 +738,29 @@ We are not only technology enthusiasts but also friendly communicators who make 
         </div>
     </footer>
     <!-- END OF site footer -->
+    <div id="cookieConsent" class="alert alert-dark position-fixed bottom-0 w-100 text-center" style="display: none;">
+        <p class="mb-0">
+            We use cookies to improve your experience on our site. By continuing, you accept our use of cookies.
+            <button id="acceptCookies" class="btn btn-primary btn-sm ms-2">Accept</button>
+        </p>
+    </div>
 
+    <!-- JavaScript to handle cookie consent -->
+    <script>
+        // Check if user has already accepted cookies
+        window.onload = function () {
+            const consent = localStorage.getItem('cookieConsent');
+            if (!consent) {
+                document.getElementById('cookieConsent').style.display = 'block';
+            }
+        };
+
+        // Set consent and hide the popup
+        document.getElementById('acceptCookies').onclick = function () {
+            localStorage.setItem('cookieConsent', 'true');
+            document.getElementById('cookieConsent').style.display = 'none';
+        };
+    </script>
     <!-- scripts -->
     <!-- All Javascript plugins goes here -->
     <script src="https://cdn.killercloud.com.au/web/js/bootstrap.min.js"></script>
