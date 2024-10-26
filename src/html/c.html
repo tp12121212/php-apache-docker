@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Consent Example</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Content of your site -->
+
+    <!-- Cookie Consent Popup -->
+    <div id="cookieConsent" class="alert alert-dark position-fixed bottom-0 w-100 text-center" style="display: none;">
+        <p class="mb-2">
+            We use cookies to enhance your experience. Please select your preferences:
+        </p>
+        <button id="acceptAll" class="btn btn-success btn-sm mx-1">Accept All</button>
+        <button id="acceptNecessary" class="btn btn-primary btn-sm mx-1">Only Necessary</button>
+        <button id="denyCookies" class="btn btn-secondary btn-sm mx-1">Deny</button>
+        <p class="mt-2 small text-muted">
+            <a href="/privacy-policy" target="_blank">Read our Privacy Policy</a>
+        </p>
+    </div>
+
+    <!-- JavaScript to handle cookie consent -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Check if consent has been given
+            const consent = localStorage.getItem('cookieConsent');
+            
+            if (!consent) {
+                // Show the pop-up if no consent has been stored
+                document.getElementById('cookieConsent').style.display = 'block';
+            }
+
+            // Apply settings if consent has been given previously
+            if (consent === 'acceptAll') {
+                enableAllCookies();
+            } else if (consent === 'acceptNecessary') {
+                enableNecessaryCookies();
+            } else if (consent === 'deny') {
+                disableAllCookies();
+            }
+
+            // Event listeners for each button
+            document.getElementById('acceptAll').onclick = function () {
+                localStorage.setItem('cookieConsent', 'acceptAll');
+                enableAllCookies();
+                hideConsentPopup();
+            };
+
+            document.getElementById('acceptNecessary').onclick = function () {
+                localStorage.setItem('cookieConsent', 'acceptNecessary');
+                enableNecessaryCookies();
+                hideConsentPopup();
+            };
+
+            document.getElementById('denyCookies').onclick = function () {
+                localStorage.setItem('cookieConsent', 'deny');
+                disableAllCookies();
+                hideConsentPopup();
+            };
+        });
+
+        // Hide the cookie consent pop-up
+        function hideConsentPopup() {
+            document.getElementById('cookieConsent').style.display = 'none';
+        }
+
+        // Example functions for cookie settings
+        function enableAllCookies() {
+            console.log("All cookies enabled");
+            // Place your cookie-enabling code here
+        }
+
+        function enableNecessaryCookies() {
+            console.log("Only necessary cookies enabled");
+            // Place your necessary cookie code here
+        }
+
+        function disableAllCookies() {
+            console.log("All cookies disabled");
+            // Place your cookie-disabling code here
+        }
+    </script>
+
+    <!-- Bootstrap JS (optional if you need Bootstrap functionality elsewhere on the page) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
