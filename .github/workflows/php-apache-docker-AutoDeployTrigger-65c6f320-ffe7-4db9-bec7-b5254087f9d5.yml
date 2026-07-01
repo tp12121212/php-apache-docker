@@ -35,14 +35,11 @@ jobs:
         uses: azure/container-apps-deploy-action@v2
         with:
           appSourcePath: ${{ github.workspace }}
-          _dockerfilePathKey_: _dockerfilePath_
           registryUrl: ca3613eddc6eacr.azurecr.io
           registryUsername: ${{ secrets.PHPAPACHEDOCKER_REGISTRY_USERNAME }}
           registryPassword: ${{ secrets.PHPAPACHEDOCKER_REGISTRY_PASSWORD }}
           containerAppName: php-apache-docker
           resourceGroup: kc_container_app
           imageToBuild: ca3613eddc6eacr.azurecr.io/php-apache-docker:${{ github.sha }}
-          _buildArgumentsKey_: |
-            _buildArgumentsValues_
 
 
