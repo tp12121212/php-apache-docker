@@ -1,47 +1,53 @@
-FROM ubuntu/apache2
+FROM ubuntu:24.04
 
-RUN apt-get update && apt-get --assume-yes --quiet -y upgrade && apt-get install --no-install-recommends --assume-yes --quiet -y \
-apache2-utils \
-aptitude \
-bzip2 \
-certbot \
-composer \
-dnsutils \
-file \
-git \
-htop \
-inetutils-ping \
-libphp-phpmailer \
-lsof \
-nano \
-nano \
-net-tools \
-libapache2-mod-php \
-openssh-server \
-openssl \
-p7zip-full \
-python3-certbot-apache \
-ssh \
-telnet \
-w3m \
-wget \
-php8.3 \
-php8.3-fpm \
-libapache2-mod-fcgid \
-&& apt-get -y autoremove \
-&& apt-get clean autoclean \
-&& rm -fr /var/lib/apt/lists/{apt,dpkg,cache,log} /tmp/* /var/tmp/*
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update \
+    && apt-get install --no-install-recommends --assume-yes \
+        apache2 \
+        apache2-utils \
+        aptitude \
+        bzip2 \
+        ca-certificates \
+        certbot \
+        composer \
+        dnsutils \
+        file \
+        git \
+        htop \
+        inetutils-ping \
+        libapache2-mod-fcgid \
+        libapache2-mod-php \
+        libphp-phpmailer \
+        lsof \
+        nano \
+        net-tools \
+        openssl \
+        p7zip-full \
+        php \
+        php-cli \
+        php-common \
+        php-curl \
+        php-mbstring \
+        php-xml \
+        php-zip \
+        python3-certbot-apache \
+        telnet \
+        w3m \
+        wget \
+    && a2enmod php8.3 \
+    && a2enmod alias \
+    && a2enmod headers \
+    && a2enmod rewrite \
+    && a2enmod ssl \
+    && mkdir -p /var/run/apache2 /var/lock/apache2 /var/log/apache2 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY ./src/html/ /var/www/html/
 COPY ./src/script/ /usr/bin/
 COPY ./src/conf/apache/apache2.conf /etc/apache2/apache2.conf
 
-RUN a2enmod proxy_fcgi proxy actions fcgid alias
-RUN systemctl enable php8.3-fpm
+EXPOSE 80 443
 
-
-EXPOSE 22 80 443
-
-CMD ["apache2-foreground"]
-
-
+CMD ["apachectl", "-D", "FOREGROUND"]
